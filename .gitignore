@@ -88,3 +88,4 @@ ENV/
 
 data/db_info.sh
 data/ebills_info.sh
+data/*.yml

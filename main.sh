@@ -35,7 +35,7 @@ for f in $( ls ${EBILLS_ELEC_SOURCE}/${EBILL_ELEC_PREFIX}* ); do
     # parse if it hasn't been done already
     if [[ ! -e "${EBILL_TXT_FILE}" ]]; then
         echo "Parsing ${f} into ${EBILL_TXT_FILE} ..."
-        pdf2txt.py -p 2 ${f} > ${EBILL_TXT_FILE}
+        pdf2txt.py | sed 's/\x0C//g' | grep '[^[:blank:]]' > ${EBILL_TXT_FILE}
     fi
 done
 
@@ -48,7 +48,7 @@ for f in $( ls ${EBILLS_GAS_SOURCE}/${EBILL_GAS_PREFIX}* ); do
     # parse if it hasn't been done already
     if [[ ! -e "${EBILL_TXT_FILE}" ]]; then
         echo "Parsing ${f} into ${EBILL_TXT_FILE} ..."
-        pdf2txt.py -F 1.0 ${f} | sed 's/\xC2\xA0/ /g' > ${EBILL_TXT_FILE}
+        pdf2txt.py -F 1.0 ${f} | sed 's/\xC2\xA0/ /g' | grep '[^[:blank:]]' > ${EBILL_TXT_FILE}
     fi
 done
 
